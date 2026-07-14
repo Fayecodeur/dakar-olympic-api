@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->id();
             $table->unsignedTinyInteger('position');
-            $table->enum('medal', ['Gold', 'Silver', 'Bronze']);
+            $table->enum('medal', ['Or', 'Argent', 'Bronze']);
 
             $table->foreignId('athlete_id')
                 ->constrained()
