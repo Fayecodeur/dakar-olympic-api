@@ -18,7 +18,11 @@ class NationController extends Controller
     {
         $nations = Nation::all();
 
-        return NationResource::collection($nations);
+        return response()->json([
+            'success' => true,
+            'message' => 'Liste des nations récupérée avec succès.',
+            'data' => NationResource::collection($nations),
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -40,7 +44,11 @@ class NationController extends Controller
      */
     public function show(Nation $nation)
     {
-        return new NationResource($nation);
+        return response()->json([
+            'success' => true,
+            'message' => 'Nation récupérée avec succès.',
+            'data' => new NationResource($nation),
+        ], Response::HTTP_OK);
     }
 
     /**
