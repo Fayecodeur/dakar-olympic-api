@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\DisciplineController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\NationController;
 use App\Http\Controllers\Api\AthleteController;
+use App\Http\Controllers\Api\EventController;
+
 
 
 
@@ -16,3 +18,4 @@ use App\Http\Controllers\Api\AthleteController;
 Route::apiResource('nations', NationController::class);
 Route::apiResource('disciplines', DisciplineController::class);
 Route::apiResource('athletes', AthleteController::class);
+Route::apiResource('events', EventController::class);
