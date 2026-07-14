@@ -16,7 +16,7 @@ class UpdateDisciplineRequest extends FormRequest
     {
         return [
             'name' => [
-                'required',
+                'sometimes',
                 'string',
                 'min:3',
                 'max:100',

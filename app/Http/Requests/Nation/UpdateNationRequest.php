@@ -16,14 +16,14 @@ class UpdateNationRequest extends ApiRequest
     {
         return [
             'code' => [
-                'required',
+                'sometimes',
                 'string',
                 'size:3',
                 Rule::unique('nations', 'code')->ignore($this->route('nation')),
             ],
 
             'name' => [
-                'required',
+                'sometimes',
                 'string',
                 'min:3',
                 'max:100',
