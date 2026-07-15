@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedTinyInteger('position');
-            $table->enum('medal', ['Or', 'Argent', 'Bronze']);
+
+            $table->enum('medal', ['Or', 'Argent', 'Bronze'])->nullable();
 
             $table->foreignId('athlete_id')
                 ->constrained()
@@ -25,6 +27,9 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
+
+            $table->unique(['athlete_id', 'event_id']);
+
             $table->timestamps();
         });
     }
