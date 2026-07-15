@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Event;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class UpdateEventRequest extends FormRequest
+class UpdateEventRequest extends ApiRequest
 {
     public function authorize(): bool
     {

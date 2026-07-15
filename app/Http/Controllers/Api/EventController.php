@@ -9,6 +9,8 @@ use App\Http\Requests\Event\UpdateEventRequest;
 use App\Http\Resources\Event\EventResource;
 use App\Models\Event;
 use Illuminate\Http\Response;
+use App\Http\Resources\Result\ResultResource;
+
 
 class EventController extends Controller
 {
@@ -87,6 +89,21 @@ class EventController extends Controller
             'success' => true,
             'message' => 'Épreuve modifiée avec succès.',
             'data' => new EventResource($event),
+        ], Response::HTTP_OK);
+    }
+
+    public function podium(Event $event)
+    {
+        $results = $event->results()
+            ->with('athlete')
+            ->orderBy('position')
+            ->limit(3)
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Podium récupéré avec succès.',
+            'data' => ResultResource::collection($results),
         ], Response::HTTP_OK);
     }
 

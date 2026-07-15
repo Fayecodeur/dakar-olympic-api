@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Athlete;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiRequest;
 
-class UpdateAthleteRequest extends FormRequest
+class UpdateAthleteRequest extends ApiRequest
 {
     public function authorize(): bool
     {
