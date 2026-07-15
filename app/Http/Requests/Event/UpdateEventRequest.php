@@ -14,9 +14,17 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['sometimes', 'string', 'min:3', 'max:100'],
+            'name' => [
+                'sometimes',
+                'string',
+                'min:3',
+                'max:100',
+            ],
 
-            'event_date' => ['sometimes', 'date'],
+            'event_date' => [
+                'sometimes',
+                'date_format:d-m-Y',
+            ],
 
             'discipline_id' => [
                 'sometimes',

@@ -12,7 +12,7 @@ class EventResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'event_date' => $this->event_date,
+            'event_date' => $this->event_date->translatedFormat('l d F Y'),
 
             'discipline' => [
                 'id' => $this->discipline->id,

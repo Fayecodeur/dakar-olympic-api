@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Event\IndexEventRequest;
 use App\Http\Requests\Event\StoreEventRequest;
 use App\Http\Requests\Event\UpdateEventRequest;
 use App\Http\Resources\Event\EventResource;
 use App\Models\Event;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class EventController extends Controller
@@ -15,11 +15,22 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+
+
+    public function index(IndexEventRequest $request)
     {
+        $eventDate = null;
+
+        if ($request->filled('event_date')) {
+            $eventDate = \Carbon\Carbon::createFromFormat(
+                'd-m-Y',
+                $request->event_date
+            )->format('Y-m-d');
+        }
+
         $events = Event::with('discipline')
-            ->when($request->event_date, function ($query) use ($request) {
-                $query->whereDate('event_date', $request->event_date);
+            ->when($eventDate, function ($query) use ($eventDate) {
+                $query->whereDate('event_date', $eventDate);
             })
             ->when($request->discipline_id, function ($query) use ($request) {
                 $query->where('discipline_id', $request->discipline_id);
