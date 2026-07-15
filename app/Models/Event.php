@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Event extends Model
 {
+    protected $casts = [
+        'event_date' => 'date',
+    ];
     protected $fillable = [
         'name',
         'event_date',
