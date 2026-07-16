@@ -37,12 +37,18 @@ class EventController extends Controller
             ->when($request->discipline_id, function ($query) use ($request) {
                 $query->where('discipline_id', $request->discipline_id);
             })
-            ->get();
+            ->paginate(10);
 
         return response()->json([
             'success' => true,
             'message' => 'Épreuves récupérées avec succès.',
             'data' => EventResource::collection($events),
+            'pagination' => [
+                'current_page' => $events->currentPage(),
+                'last_page' => $events->lastPage(),
+                'per_page' => $events->perPage(),
+                'total' => $events->total(),
+            ],
         ], Response::HTTP_OK);
     }
 

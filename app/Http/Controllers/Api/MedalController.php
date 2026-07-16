@@ -43,6 +43,12 @@ class MedalController extends Controller
             ];
         });
 
+        // Classement : Or puis Argent puis Bronze
+        $data = $data->sortByDesc('gold')
+            ->sortByDesc('silver')
+            ->sortByDesc('bronze')
+            ->values();
+
         return response()->json([
             'success' => true,
             'message' => 'Tableau des médailles récupéré avec succès.',
