@@ -1,6 +1,5 @@
 <?php
 
-// use Illuminate\Http\Request;
 
 use App\Http\Controllers\Api\DisciplineController;
 use Illuminate\Support\Facades\Route;
