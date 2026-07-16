@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions 
+    name="OlympicService"
+    targetNamespace="http://localhost/soap"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:tns="http://localhost/soap"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+
+    <types>
+        <xsd:schema targetNamespace="http://localhost/soap">
+            <xsd:complexType name="Athlete">
+                <xsd:all>
+                    <xsd:element name="success" type="xsd:boolean"/>
+                    <xsd:element name="id" type="xsd:int"/>
+                    <xsd:element name="first_name" type="xsd:string"/>
+                    <xsd:element name="last_name" type="xsd:string"/>
+                    <xsd:element name="gender" type="xsd:string"/>
+                    <xsd:element name="birth_date" type="xsd:string"/>
+                    <xsd:element name="nation" type="xsd:string"/>
+                    <xsd:element name="discipline" type="xsd:string"/>
+                    <xsd:element name="message" type="xsd:string"/>
+                </xsd:all>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+
+    <message name="getAthleteByIdRequest">
+        <part name="id" type="xsd:int"/>
+    </message>
+
+    <message name="getAthleteByIdResponse">
+        <part name="return" type="tns:Athlete"/>
+    </message>
+
+    <portType name="OlympicPortType">
+        <operation name="getAthleteById">
+            <input message="tns:getAthleteByIdRequest"/>
+            <output message="tns:getAthleteByIdResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="OlympicBinding" type="tns:OlympicPortType">
+        <soap:binding 
+            style="rpc"
+            transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name="getAthleteById">
+            <soap:operation soapAction="getAthleteById"/>
+            <input>
+                <soap:body use="encoded"
+                    namespace="http://localhost/soap"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded"
+                    namespace="http://localhost/soap"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="OlympicService">
+        <port name="OlympicPort" binding="tns:OlympicBinding">
+            <soap:address location="http://127.0.0.1:8000/soap.php"/>
+        </port>
+    </service>
+
+</definitions>
