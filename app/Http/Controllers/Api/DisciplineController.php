@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Discipline\DisciplineResource;
 use App\Http\Requests\Discipline\StoreDisciplineRequest;
 use App\Http\Requests\Discipline\UpdateDisciplineRequest;
+use App\Http\Resources\Athlete\AthleteResource;
 
 class DisciplineController extends Controller
 {
@@ -50,6 +51,25 @@ class DisciplineController extends Controller
             'success' => true,
             'message' => 'Discipline modifiée avec succès.',
             'data' => new DisciplineResource($discipline),
+        ], Response::HTTP_OK);
+    }
+
+    public function athletes(Discipline $discipline)
+    {
+        $athletes = $discipline->athletes()
+            ->with('nation')
+            ->paginate(20);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Athlètes de la discipline récupérés avec succès.',
+            'data' => AthleteResource::collection($athletes),
+            'pagination' => [
+                'current_page' => $athletes->currentPage(),
+                'last_page' => $athletes->lastPage(),
+                'per_page' => $athletes->perPage(),
+                'total' => $athletes->total(),
+            ],
         ], Response::HTTP_OK);
     }
 
