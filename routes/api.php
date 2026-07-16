@@ -12,41 +12,31 @@ use App\Http\Controllers\Api\ResultController;
 use App\Http\Controllers\Api\DashboardController;
 
 
-
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
-
+// Gestion des nations
 Route::apiResource('nations', NationController::class);
+
+// Gestion des disciplines
 Route::apiResource('disciplines', DisciplineController::class);
+Route::get('disciplines/{discipline}/athletes', [DisciplineController::class, 'athletes']);
+
+// Gestion des athlètes
 Route::apiResource('athletes', AthleteController::class);
+
+// Gestion des épreuves
 Route::apiResource('events', EventController::class);
-Route::apiResource('results', ResultController::class);
 Route::get('events/{event}/podium', [EventController::class, 'podium']);
-Route::apiResource('events', EventController::class);
+
+// Gestion des résultats
+Route::apiResource('results', ResultController::class);
+
+// Tableau des médailles
 Route::get('medals', [MedalController::class, 'index']);
-Route::get(
-    'disciplines/{discipline}/athletes',
-    [DisciplineController::class, 'athletes']
-);
 
-Route::get('dashboard/athletes-count', [DashboardController::class, 'athletesCount']);
-Route::get(
-    'dashboard/nations-count',
-    [DashboardController::class, 'nationsCount']
-);
-
-Route::get(
-    'dashboard/medals-count',
-    [DashboardController::class, 'medalsCount']
-);
-
-Route::get(
-    'dashboard/ranking',
-    [DashboardController::class, 'ranking']
-);
-
-Route::get(
-    'dashboard/medalists',
-    [DashboardController::class, 'medalists']
-);
+// Tableau de bord - Statistiques
+Route::prefix('dashboard')->group(function () {
+    Route::get('athletes-count', [DashboardController::class, 'athletesCount']);
+    Route::get('nations-count', [DashboardController::class, 'nationsCount']);
+    Route::get('medals-count', [DashboardController::class, 'medalsCount']);
+    Route::get('ranking', [DashboardController::class, 'ranking']);
+    Route::get('medalists', [DashboardController::class, 'medalists']);
+});
