@@ -13,12 +13,19 @@ class AthleteController extends Controller
 {
     public function index()
     {
-        $athletes = Athlete::with(['nation', 'discipline'])->get();
+        $athletes = Athlete::with(['nation', 'discipline'])
+            ->paginate(20);
 
         return response()->json([
             'success' => true,
             'message' => 'Athlètes récupérés avec succès.',
             'data' => AthleteResource::collection($athletes),
+            'pagination' => [
+                'current_page' => $athletes->currentPage(),
+                'last_page' => $athletes->lastPage(),
+                'per_page' => $athletes->perPage(),
+                'total' => $athletes->total(),
+            ],
         ], Response::HTTP_OK);
     }
 
