@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\AthleteController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\MedalController;
 use App\Http\Controllers\Api\ResultController;
-
+use App\Http\Controllers\Api\DashboardController;
 
 
 
@@ -25,3 +25,28 @@ Route::apiResource('results', ResultController::class);
 Route::get('events/{event}/podium', [EventController::class, 'podium']);
 Route::apiResource('events', EventController::class);
 Route::get('medals', [MedalController::class, 'index']);
+Route::get(
+    'disciplines/{discipline}/athletes',
+    [DisciplineController::class, 'athletes']
+);
+
+Route::get('dashboard/athletes-count', [DashboardController::class, 'athletesCount']);
+Route::get(
+    'dashboard/nations-count',
+    [DashboardController::class, 'nationsCount']
+);
+
+Route::get(
+    'dashboard/medals-count',
+    [DashboardController::class, 'medalsCount']
+);
+
+Route::get(
+    'dashboard/ranking',
+    [DashboardController::class, 'ranking']
+);
+
+Route::get(
+    'dashboard/medalists',
+    [DashboardController::class, 'medalists']
+);
